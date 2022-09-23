@@ -3,7 +3,8 @@ from authlib.integrations.flask_client import OAuth
 
 app = Flask(__name__ , template_folder='template')
 app.secret_key = 'secret key'
-
+#import flask
+# application
 
 
 app.config['SERVER_NAME'] = 'localhost:5000'
