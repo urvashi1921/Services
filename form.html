@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{{url_for('static' , filename='CSS/login.css')}}"
+</head>
+<body background="static/img/download2.jpg" style="background-repeat:no-repeat ; background-size:100% 100%">
+</br></br>
+     <div align="center"></div>
+          <div align="center" class="border">
+               <div class="error">{{error}}</div>
+                   <div class="header">
+                      <h1 class="word">Login</h1>
+                  </div> </br>
+<h2 class="word">
+<form action="http://localhost:5000/login" method="post" ></br></br>
+    <input id="username"  name="username" type="text" placeholder="Enter a username" class="text"></br></br>
+    <input id="Password"  name="password" type="text" placeholder="Enter a Password" class="text"></br></br>
+    <input type = "submit" class="btn" value="Sign In"></br>
+
+</form>
+</h2>
+<p class="bottom"> Don't have a account? <a class="bottom" href="#">SignUp here</a></p></br>
+          </div>
+<p align="center">
+		<a href="facebook/">
+		<img id="facebook"
+			src="https://img.shields.io/badge/Facebook-Connect-brightgreen?style=for-the-badge&labelColor=black&logo=facebook"
+			alt="Facebook"> <br>
+		</a>
+		 <p align="center">
+         <a href="google/">
+         <img id="google"
+            src="https://img.shields.io/badge/Google-Connect-brightgreen?style=for-the-badge&labelColor=black&logo=google"
+            alt="Google"> <br>
+         </a>
+	</p></br></br></br>
+
+</div>
+</body>
+</html>
