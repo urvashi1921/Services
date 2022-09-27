@@ -1,21 +1,32 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
 from authlib.integrations.flask_client import OAuth
 
-app = Flask(__name__ , template_folder='template')
-app.secret_key = 'secret key'
-#import flask
-# application
-
+app = Flask(__name__, template_folder='template')
+app.secret_key = "login"
 
 app.config['SERVER_NAME'] = 'localhost:5000'
 oauth = OAuth(app)
 
-
 @app.route('/')
-def index():
-    return render_template('index.html')
+def sss():
+    return render_template('form.html')
 
+@app.route("/login", methods=["POST"])
+def login():
+    if request.method =="POST":
+        uname = request.form["username"]
+        password = request.form["password"]
+        if  (uname == "urvashi" and password == "1234"):
+            session['email']=uname
+            return render_template('message.html', email=uname)
+        else:
+            error = "invalid username / password"
+            return render_template('form.html', error=error)
+    else:
+        if "email" in session:
+            return redirect(url_for("username"))
 
+    return redirect(url_for("sss"))
 @app.route('/facebook/')
 def facebook():
     oauth.register(
@@ -32,18 +43,16 @@ def facebook():
     redirect_uri = url_for('facebook_auth', _external=True)
     return oauth.facebook.authorize_redirect(redirect_uri)
 
-
 @app.route('/facebook/auth/')
 def facebook_auth():
     token = oauth.facebook.authorize_access_token()
     resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     print("Facebook User ", profile)
-    return redirect('/')
+    return render_template('message.html')
 
 @app.route('/google/')
 def google():
-
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
     oauth.register(
         name='google',
@@ -57,16 +66,18 @@ def google():
     redirect_uri = url_for('google_auth', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
-
-
-
 @app.route('/google/auth/')
 def google_auth():
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token, None)
     print(" Google User ", user)
-    return redirect('/')
+    return render_template('message.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    return render_template('form.html')
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
     app.run(debug=True)
