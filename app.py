@@ -9,7 +9,7 @@ oauth = OAuth(app)
 
 @app.route('/')
 def sss():
-    return render_template('form.html')
+    return render_template('message.html')
 
 @app.route("/login", methods=["GET"])
 def login():
