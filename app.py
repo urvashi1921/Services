@@ -11,11 +11,11 @@ oauth = OAuth(app)
 def sss():
     return render_template('form.html')
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET"])
 def login():
-    if request.method =="POST":
-        uname = request.form["username"]
-        password = request.form["password"]
+    if request.method =="GET":
+        uname = request.args.get("username")
+        password = request.args.get("password")
         if  (uname == "urvashi" and password == "1234"):
             session['email']=uname
             return render_template('message.html', email=uname)
